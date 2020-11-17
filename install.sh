@@ -1,10 +1,38 @@
 #!/usr/bin/env bash
 
+check-system() {
+    if [ "$(uname)" == "Darwin" ]; then
+        if ! [ -x "$(command -v brew)" ]; then
+            echo "* Installing Homebrew"
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        fi
+        export INSTALLER="brew install"
+    else
+        if [ -x "$(command -v apt-get)" ]; then
+            export INSTALLER="sudo apt-get install"
+        fi
+    fi
+}
+
 clone-repo() {
     echo "* Cloning WingLim/dotfiles"
     
     git clone https://github.com/WingLim/dotfiles "$HOME/dotfiles"
     rm -rf "$HOME/dotfiles/.git"
+}
+
+install-package() {
+    __pkg_to_be_installed=(
+        zsh
+        wget
+        git
+        tree
+        neofetch
+    )
+
+    for __pkg in "${__pkg_to_be_installed[@]}"; do
+        $INSTALLER "$__pkg"
+    done
 }
 
 setup-omz() {
@@ -77,6 +105,8 @@ finish() {
     rm -rf "$HOME/dotfiles"
 }
 
+check-system
+install-package
 clone-repo
 setup-omz
 install-pyenv

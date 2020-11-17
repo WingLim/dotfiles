@@ -30,6 +30,7 @@ setup-omz() {
 install-pyenv() {
     echo "* Installing pyenv"
     local GITHUB="https://github.com"
+    local PYENV_ROOT="$HOME/.pyenv"
     git clone "${GITHUB}/pyenv/pyenv.git"            "${PYENV_ROOT}"
     git clone "${GITHUB}/pyenv/pyenv-doctor.git"     "${PYENV_ROOT}/plugins/pyenv-doctor"
     git clone "${GITHUB}/pyenv/pyenv-installer.git"  "${PYENV_ROOT}/plugins/pyenv-installer"

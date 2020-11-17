@@ -199,17 +199,6 @@ alias ga="git add -a"
 # Git Undo
 alias git-undo="git reset --soft HEAD^"
 
-# Clash proxy for WSL
-
-export WIN_IP=$(ip route | grep default | awk '{print $3}')
-proxy() {
-    export ALL_PROXY="http://$WIN_IP:7890"
-}
-
-noproxy() {
-    unset ALL_PROXY
-}
-
 git-config() {
     echo "* Git Configuration"
     echo -n "Please input Git Username:"

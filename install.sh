@@ -3,9 +3,8 @@
 clone-repo() {
     echo "* Cloning WingLim/dotfiles"
     
-    git clone https://github.com/WingLim/dotfiles
-    cd "./dotfiles" || exit
-    rm -rf .git
+    git clone https://github.com/WingLim/dotfiles "$HOME/dotfiles"
+    rm -rf "$HOME/dotfiles/.git"
 }
 
 setup-omz() {

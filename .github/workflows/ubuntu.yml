@@ -1,0 +1,17 @@
+name: Ubuntu
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: test in ubuntu
+        run: curl -o- https://raw.githubusercontent.com/WingLim/dotfiles/main/install.sh | bash
+
+     

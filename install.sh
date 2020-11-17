@@ -111,6 +111,6 @@ clone-repo
 setup-omz
 install-pyenv
 install-goenv
-clash-proxy
 zshrc
+clash-proxy
 finish

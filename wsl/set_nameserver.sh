@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 add-wsl-conf() {
-    echo "* Copy wsl.conf"
-    sudo tee -a /etc/wsl.conf > /dev/null <<EOF
+    echo "* Generate wsl.conf"
+    sudo tee /etc/wsl.conf > /dev/null <<EOF
 [network]
 generateResolvConf = false
 EOF
@@ -10,7 +10,13 @@ EOF
 
 set-resolv() {
     echo "* Add nameserver"
-    echo "nameserver 223.5.5.5" | sudo tee -a /etc/resolv.conf > /dev/null
+    if [ -z "$1" ]; then
+        local nameserver="223.5.5.5"
+    else
+        local nameserver=$1
+    fi
+    
+    echo "nameserver $nameserver" | sudo tee /etc/resolv.conf > /dev/null
 }
 
 finish() {
@@ -19,5 +25,5 @@ finish() {
 }
 
 add-wsl-conf
-set-resolv
+set-resolv "$1"
 finish

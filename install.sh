@@ -41,7 +41,7 @@ install-pyenv() {
 install-goenv() {
     echo "* Installing syndbg/goenv"
 
-    git clone https://github.com/syndbg/goenv.git ~/.goenv
+    git clone https://github.com/syndbg/goenv.git "$HOME/.goenv"
 }
 
 clash-proxy() {

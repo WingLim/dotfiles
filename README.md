@@ -1,6 +1,6 @@
 # dotfiles
 
-![License](https://img.shields.io/github/license/WingLim/dotfiles?style=flat-square) ![Ubuntu](https://github.com/WingLim/dotfiles/workflows/Ubuntu/badge.svg?branch=main)
+![License](https://img.shields.io/github/license/WingLim/dotfiles) ![Ubuntu](https://github.com/WingLim/dotfiles/workflows/Ubuntu/badge.svg?branch=main)
 
 WingLim's `.files`, auto config shell and some develop environment.
 

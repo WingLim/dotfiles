@@ -4,7 +4,7 @@ clone-repo() {
     echo "* Cloning WingLim/dotfiles"
     
     git clone https://github.com/WingLim/dotfiles
-    cd "$HOME/dotfiles" || exit
+    cd "./dotfiles" || exit
     rm -rf .git
 }
 

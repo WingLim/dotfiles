@@ -211,14 +211,14 @@ noproxy() {
 }
 
 git-config() {
-    echo -n "* Git Configuration"
-    echo "Please input Git Username:"
+    echo "* Git Configuration"
+    echo -n "Please input Git Username:"
     read username
     
     echo -n "Please input Git Email:"
     read email
 
-    echo -n "Done!"
+    echo "Done!"
 
 	git config --global user.name "${username}"
 	git config --global user.email "${email}"

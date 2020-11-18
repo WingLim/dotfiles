@@ -40,7 +40,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -120,6 +120,7 @@ export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 # Create .npm-global folder if not exists
 [[ ! -d "$HOME/.npm-global" ]] && mkdir -p $HOME/.npm-global
 
+export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
 export GOENV_ROOT="$HOME/.goenv"
 export GOPATH="$HOME/go"
 
@@ -156,8 +157,6 @@ if (( $+commands[thefuck] )) &>/dev/null; then
 fi
 
 ## Lazyload pyenv
-export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
-
 if (( $+commands[pyenv] )) &>/dev/null; then
     export PATH="${PYENV_ROOT}/shims:${PATH}"
 

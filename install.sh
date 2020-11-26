@@ -86,10 +86,12 @@ clash-proxy() {
 
 proxy() {
     export ALL_PROXY="http://\$CLASH_IP:7890"
+    echo "ProxyCommand nc -X 5 -x \$CLASH_IP:7890 %h %p >> ~/.ssh/config"
 }
 
 noproxy() {
     unset ALL_PROXY
+    sed '/ProxyCommand/d' ~/.ssh/config > ~/.ssh/config.bk && mv ~/.ssh/config.bk ~/.ssh/config
 }
 EOF
 }

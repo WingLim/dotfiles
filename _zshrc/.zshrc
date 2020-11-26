@@ -194,7 +194,8 @@ alias vi=nvim
 alias gst="git status"
 alias gcmsg="git commit -m"
 alias gp="git push"
-alias ga="git add -a"
+alias ga="git add"
+alias gaa="git add --all"
 # Git Undo
 alias git-undo="git reset --soft HEAD^"
 

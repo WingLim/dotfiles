@@ -100,6 +100,7 @@ zshrc() {
     echo "* Import .zshrc"
     cat "$HOME/dotfiles/_zshrc/.zshrc" > "$HOME/.zshrc"
     cat "$HOME/dotfiles/p10k/.p10k.zsh" > "$HOME/.p10k.zsh"
+    chsh -s /bin/zsh
 }
 
 finish() {

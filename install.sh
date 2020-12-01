@@ -81,7 +81,7 @@ clash-proxy() {
         local ip="127.0.0.1"
     fi
     echo "export CLASH_IP=${ip}" >> "$HOME/.zshrc"
-    cat > "$HOME/.zshrc" <<EOF
+    cat >> "$HOME/.zshrc" <<EOF
 # Clash proxy for WSL
 
 proxy() {

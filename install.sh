@@ -9,7 +9,7 @@ check-system() {
         export INSTALLER="brew install"
     else
         if [ -x "$(command -v apt-get)" ]; then
-            export INSTALLER="sudo apt-get install"
+            export INSTALLER="sudo apt-get install -y"
         fi
     fi
 }

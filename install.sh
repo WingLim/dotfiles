@@ -7,10 +7,13 @@ check-system() {
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         fi
         export INSTALLER="brew install"
+        export OS="Darwin"
     elif [ -x "$(command -v apt-get)" ]; then
         export INSTALLER="sudo apt-get install -y"
+        export OS="Ubuntu"
     elif [ -x "$(command) -v pacman" ]; then
         export INSTALLER="sudo pacman -S --noconfirm"
+        export OS="Manjaro"
     fi
 }
 
@@ -28,11 +31,31 @@ install-package() {
         git
         tree
         neofetch
+        neovim
     )
 
     for __pkg in "${__pkg_to_be_installed[@]}"; do
         $INSTALLER "$__pkg"
     done
+}
+
+install-node() {
+    case "$OS" in
+        "Darwin")
+            $INSTALLER node
+        ;;
+        "Ubuntu")
+            curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+            $INSTALLER nodejs
+        ;;
+        "Manjaro")
+            $INSTALLER nodejs npm
+        ;;
+        *)
+            echo "Unsupport OS"
+        ;;
+    esac
+    
 }
 
 setup-omz() {
@@ -72,6 +95,13 @@ install-goenv() {
     git clone https://github.com/syndbg/goenv.git "$HOME/.goenv"
 }
 
+install-thinkvim() {
+    git clone --depth=1 https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim
+    cd ~/.config/nvim || return
+    pyenv virtualenv 3.9.0 neovim
+    bash scripts/install.sh
+}
+
 clash-proxy() {
     echo "* Setting clash proxy"
     if [[ $(uname -r) =~ "microsoft" ]]
@@ -101,6 +131,13 @@ zshrc() {
     cat "$HOME/dotfiles/_zshrc/.zshrc" > "$HOME/.zshrc"
     cat "$HOME/dotfiles/p10k/.p10k.zsh" > "$HOME/.p10k.zsh"
     chsh -s /bin/zsh
+    # shellcheck source=/dev/null
+    source "$HOME/.zshrc"
+}
+
+install-python() {
+    pyenv install 3.9.0
+    pyenv global 3.9.0
 }
 
 finish() {
@@ -110,10 +147,13 @@ finish() {
 
 check-system
 install-package
+install-node
 clone-repo
 setup-omz
 install-pyenv
 install-goenv
 zshrc
+install-python
+install-thinkvim
 clash-proxy
 finish

@@ -183,7 +183,7 @@ install_ccls() {
         fi
         mkdir -p "$HOME/src"
 	# if never download llvm pre-build binaries, download and move it
-	if ! [ -d "$HOME/src/clang+llvm-11.0.0" ]
+	if ! [ -d "$HOME/src/clang+llvm-11.0.0" ]; then
 	    wget -q "${LLVM_URL}"
             tar -xf clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz -C "$HOME/src"
             mv "$HOME/src/clang+llvm-11.0.0-x86_64-${CCLS_PLATFORM}" "$HOME/src/clang+llvm-11.0.0"

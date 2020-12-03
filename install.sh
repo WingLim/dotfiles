@@ -218,7 +218,7 @@ hint() {
     echo -e "\033[32m$1\033[0m"
 }
 
-ARGS=$(getopt --long novim,cdn -- "$@")
+ARGS=$(getopt --long novim,cdn,noproxy -- "$@")
 eval set -- "${ARGS}"
 
 while [ -n "$1" ]
@@ -229,6 +229,9 @@ do
     ;;
     --cdn)
         cdn=1
+    ;;
+    --noproxy)
+        noproxy=1
     ;;
     --)
         shift
@@ -252,5 +255,7 @@ if ! [ "$novim" == 1 ];then
     install_thinkvim
     install_ccls "$cdn"
 fi
-clash_proxy
+if ! [ "$noproxy" == 1 ]; then
+    clash_proxy
+fi
 finish

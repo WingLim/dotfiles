@@ -31,6 +31,12 @@ For using C/C++/ObjC LSP(Language Server Protocol) in neovim, script will downlo
 
 Use `--cdn` to download LLVM Pre-Built Binaries from Tsinghua Mirror.
 
+### `--noproxy`
+
+Script will add `proxy` and `noproxy` function to `.zshrc` for user to use [Clash](https://github.com/Dreamacro/clash) as proxy.
+
+Use `--noproxy` to remove these functions.
+
 ## WSL2
 
 If you are using WSL2 Ubuntu, you can use below script to config `nameserver`

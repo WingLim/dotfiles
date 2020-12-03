@@ -12,7 +12,7 @@ check_system() {
     elif [ -x "$(command -v apt-get)" ]; then
         INSTALLER="sudo apt-get install -y"
         OS="Ubuntu"
-    elif [ -x "$(command) -v pacman" ]; then
+    elif [ -x "$(command -v pacman)" ]; then
         INSTALLER="sudo pacman -S --noconfirm"
         OS="Manjaro"
     fi

@@ -145,7 +145,7 @@ install-ccls() {
         git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         cd ccls || exit
         cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$HOME/src/clang+llvm-11.0.0-x86_64-${CCLS_PLATFORM}"
-        cmake --build Release
+        cmake --build Release --target install
     fi
 }
 

@@ -40,6 +40,7 @@ set_system() {
         ;;
         *)
             echo "Unsupport OS"
+	    exit
         ;;
     esac
 }

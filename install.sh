@@ -67,6 +67,9 @@ install_package() {
     # if not mac, install below lib for compile python
     if ! [ "$OS" == "Darwin" ];then
         __pkg_to_be_installed+=(
+	    # for compile ccls
+	    clang
+
             libreadline-dev
             libbz2-dev
             libffi-dev

@@ -28,6 +28,7 @@ set-system() {
             curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
             NODE_NAME="nodejs"
             ccls-platform="linux-gnu-ubuntu-20.04"
+            export DEBIAN_FRONTEND=noninteractive
             $INSTALLER update
         ;;
         "Manjaro")
@@ -109,11 +110,11 @@ install-goenv() {
 install-thinkvim() {
     mkdir -p "$HOME/.npm-global"
     git clone --depth=1 https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim
-    cd ~/.config/nvim || return
     npm install -g yarn
     pyenv virtualenv 3.9.0 neovim
     mkdir -p "$HOME/.thinkvim.d"
     cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
+    cd ~/.config/nvim || return
     bash scripts/install.sh
     yarn global add \
         dockerfile-language-server-nodejs \

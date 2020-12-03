@@ -96,6 +96,7 @@ install-pyenv() {
     git clone "${GITHUB}/pyenv/pyenv-update.git"     "${PYENV_ROOT}/plugins/pyenv-update"
     git clone "${GITHUB}/pyenv/pyenv-virtualenv.git" "${PYENV_ROOT}/plugins/pyenv-virtualenv"
     git clone "${GITHUB}/pyenv/pyenv-which-ext.git"  "${PYENV_ROOT}/plugins/pyenv-which-ext"
+    export PYENV_ROOT=$PYENV_ROOT
     export PATH="$PYENV_ROOT/bin:$PATH"
 }
 
@@ -106,6 +107,7 @@ install-goenv() {
 }
 
 install-thinkvim() {
+    mkdir -p "$HOME/.npm-global"
     git clone --depth=1 https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim
     cd ~/.config/nvim || return
     npm install -g yarn
@@ -161,6 +163,7 @@ zshrc() {
 }
 
 install-python() {
+    echo "* Installing python 3.9.0"
     pyenv install 3.9.0
     pyenv global 3.9.0
 }

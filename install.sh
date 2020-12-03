@@ -83,7 +83,7 @@ install_package() {
     fi
 
     for __pkg in "${__pkg_to_be_installed[@]}"; do
-        $INSTALLER "$__pkg"
+        $INSTALLER $__pkg
     done
 }
 

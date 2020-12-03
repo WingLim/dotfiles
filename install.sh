@@ -21,19 +21,19 @@ set-system() {
     case "$OS" in
         "Darwin")
             NODE_NAME="node"
-            ccls-platform="apple-darwin"
+            CCLS_PLATFORM="apple-darwin"
             $INSTALLER update
         ;;
         "Ubuntu")
             curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
             NODE_NAME="nodejs"
-            ccls-platform="linux-gnu-ubuntu-20.04"
+            CCLS_PLATFORM="linux-gnu-ubuntu-20.04"
             export DEBIAN_FRONTEND=noninteractive
             $INSTALLER update
         ;;
         "Manjaro")
             NODE_NAME="nodejs npm"
-            ccls-platform="linux-gnu-ubuntu-20.04"
+            CCLS_PLATFORM="linux-gnu-ubuntu-20.04"
             $INSTALLER -u
         ;;
         *)
@@ -50,6 +50,7 @@ clone-repo() {
 }
 
 install-package() {
+    hint "* Installing packages"
     __pkg_to_be_installed=(
         zsh
         wget
@@ -134,11 +135,11 @@ install-ccls() {
     hint "* Installing ccls"
     if ! [ -x "$(command -v ccls)" ]; then
         mkdir -p "$HOME/src" && cd "$HOME/src" || exit
-        llvm-url=https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${ccls-platform}".tar.xz
-        wget "${llvm-url}" && tar -xf clang+llvm-11.0.0-x86_64-"${ccls-platform}".tar.xz
+        LLVM_URL=https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
+        wget "${LLVM_URL}" && tar -xf clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
         git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         cd ccls || exit
-        cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$HOME/src/clang+llvm-11.0.0-x86_64-${ccls-platform}"
+        cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$HOME/src/clang+llvm-11.0.0-x86_64-${CCLS_PLATFORM}"
         cmake --build Release
     fi
 }

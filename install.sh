@@ -213,6 +213,7 @@ install_package
 clone_repo
 setup_omz
 install_pyenv
+install_python
 install_goenv
 zshrc
 install_thinkvim

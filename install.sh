@@ -22,19 +22,19 @@ set_system() {
         "Darwin")
             NODE_NAME="node"
             CCLS_PLATFORM="apple-darwin"
-            $INSTALLER update
+            brew update
         ;;
         "Ubuntu")
             curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
             NODE_NAME="nodejs"
             CCLS_PLATFORM="linux-gnu-ubuntu-20.04"
             export DEBIAN_FRONTEND=noninteractive
-            $INSTALLER update
+            sudo apt-get update -y
         ;;
         "Manjaro")
             NODE_NAME="nodejs npm"
             CCLS_PLATFORM="linux-gnu-ubuntu-20.04"
-            $INSTALLER -u
+            sudo pacman -Syu --noconfirm
         ;;
         *)
             echo "Unsupport OS"

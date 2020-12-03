@@ -111,7 +111,7 @@ install-thinkvim() {
     pyenv virtualenv 3.9.0 neovim
     mkdir -p "$HOME/.thinkvim.d"
     cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
-    bash scripts/install.sh
+    zsh scripts/install.sh
     npm install -g dockerfile-language-server-nodejs bash-language-server intelephense
 
 }
@@ -155,7 +155,8 @@ zshrc() {
     cat "$HOME/dotfiles/_zshrc/.zshrc" > "$HOME/.zshrc"
     cat "$HOME/dotfiles/p10k/.p10k.zsh" > "$HOME/.p10k.zsh"
     chsh -s /bin/zsh
-    zsh
+    # shellcheck source=/dev/null
+    source "$HOME/.zshrc"
 }
 
 install-python() {

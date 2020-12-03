@@ -131,10 +131,11 @@ install-thinkvim() {
 }
 
 install-ccls() {
+    hint "* Installing ccls"
     if ! [ -x "$(command -v ccls)" ]; then
         mkdir -p "$HOME/src" && cd "$HOME/src" || exit
-        llvm-url = https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${ccls-platform}".tar.xz
-        wget llvm-url && tar 
+        llvm-url=https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${ccls-platform}".tar.xz
+        wget "${llvm-url}" && tar -xf clang+llvm-11.0.0-x86_64-"${ccls-platform}".tar.xz
         git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         cd ccls || exit
         cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$HOME/src/clang+llvm-11.0.0-x86_64-${ccls-platform}"

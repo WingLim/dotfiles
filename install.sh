@@ -157,8 +157,8 @@ install_ccls() {
             LLVM_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
         fi
         mkdir -p "$HOME/src" && cd "$HOME/src" || exit
+        wget -q "${LLVM_URL}" -O - | tar -x
         
-        wget -q "${LLVM_URL}" && tar -xf clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
         git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         cd ccls || exit
         cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$HOME/src/clang+llvm-11.0.0-x86_64-${CCLS_PLATFORM}"

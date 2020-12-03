@@ -98,7 +98,9 @@ install-goenv() {
 install-thinkvim() {
     git clone --depth=1 https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim
     cd ~/.config/nvim || return
+    npm install -g yarn
     pyenv virtualenv 3.9.0 neovim
+    cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
     bash scripts/install.sh
 }
 

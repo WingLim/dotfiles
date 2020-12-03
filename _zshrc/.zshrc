@@ -123,7 +123,7 @@ export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
 export GOENV_ROOT="$HOME/.goenv"
 
-export PATH="$GOENV_ROOT/bin:$N_PREFIX/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$NPM_CONFIG_PREFIX/bin:$PYENV_ROOT/shims:$GOENV_ROOT/bin:$GOENV_ROOT/shims:$PATH:$GOPATH/bin"
+export PATH="$N_PREFIX/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$NPM_CONFIG_PREFIX/bin:$PYENV_ROOT/bin:$GOENV_ROOT/bin:$PATH:$GOPATH/bin"
 
 # Lazyload Function
 
@@ -174,6 +174,8 @@ fi
 
 ## Lazyload goenv
 if (( $+commands[goenv] )) &>/dev/null; then
+    export PATH="${GOENV_ROOT}/shims:${PATH}"
+
     _lazyload_command_goenv() {
         eval "$(goenv init -)"
     }

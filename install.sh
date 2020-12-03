@@ -109,20 +109,19 @@ install_pyenv() {
     git clone "${GITHUB}/pyenv/pyenv-which-ext.git"  "${PYENV_ROOT}/plugins/pyenv-which-ext"
     export PYENV_ROOT=$PYENV_ROOT
     export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
+
+    hint "* Installing python 3.9.0"
+    pyenv -v
+    pyenv install 3.9.0
+    pyenv global 3.9.0
 }
 
 install_goenv() {
     hint "* Installing syndbg/goenv"
 
     git clone https://github.com/syndbg/goenv.git "$HOME/.goenv"
-}
-
-install_pyenv_python() {
-    hint "* Installing python 3.9.0"
-    pyenv -v
-    pyenv install 3.9.0
-    pyenv global 3.9.0
 }
 
 install_thinkvim() {
@@ -207,7 +206,6 @@ setup_omz
 install_pyenv
 install_goenv
 zshrc
-install_pyenv_python
 install_thinkvim
 install_ccls "$1"
 clash_proxy

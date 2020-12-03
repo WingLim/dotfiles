@@ -17,6 +17,27 @@ check-system() {
     fi
 }
 
+set-system() {
+    case "$OS" in
+        "Darwin")
+            NODE_NAME="node"
+            ccls-platform="apple-darwin"
+        ;;
+        "Ubuntu")
+            curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+            NODE_NAME="nodejs"
+            ccls-platform="linux-gnu-ubuntu-20.04"
+        ;;
+        "Manjaro")
+            NODE_NAME="nodejs npm"
+            ccls-platform="linux-gnu-ubuntu-20.04"
+        ;;
+        *)
+            echo "Unsupport OS"
+        ;;
+    esac
+}
+
 clone-repo() {
     echo "* Cloning WingLim/dotfiles"
     
@@ -32,6 +53,10 @@ install-package() {
         tree
         neofetch
         neovim
+        "$NODE_NAME"
+        cmake
+        gcc
+        clang
     )
 
     for __pkg in "${__pkg_to_be_installed[@]}"; do
@@ -100,8 +125,21 @@ install-thinkvim() {
     cd ~/.config/nvim || return
     npm install -g yarn
     pyenv virtualenv 3.9.0 neovim
+    mkdir -p "$HOME/.thinkvim.d"
     cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
     bash scripts/install.sh
+    npm install -g dockerfile-language-server-nodejs bash-language-server intelephense
+
+}
+
+install-ccls() {
+    mkdir -p "$HOME/src" && cd "$HOME/src" || return
+    llvm-url = https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${ccls-platform}".tar.xz
+    wget llvm-url && tar 
+    git clone --depth=1 --recursive https://github.com/MaskRay/ccls
+    cd ccls || return
+    cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$HOME/src/clang+llvm-11.0.0-x86_64-${ccls-platform}"
+    cmake --build Release
 }
 
 clash-proxy() {
@@ -157,5 +195,6 @@ install-goenv
 zshrc
 install-python
 install-thinkvim
+install-ccls
 clash-proxy
 finish

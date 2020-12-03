@@ -96,6 +96,7 @@ install-pyenv() {
     git clone "${GITHUB}/pyenv/pyenv-update.git"     "${PYENV_ROOT}/plugins/pyenv-update"
     git clone "${GITHUB}/pyenv/pyenv-virtualenv.git" "${PYENV_ROOT}/plugins/pyenv-virtualenv"
     git clone "${GITHUB}/pyenv/pyenv-which-ext.git"  "${PYENV_ROOT}/plugins/pyenv-which-ext"
+    export PATH="$PYENV_ROOT/bin:$PATH"
 }
 
 install-goenv() {
@@ -111,7 +112,7 @@ install-thinkvim() {
     pyenv virtualenv 3.9.0 neovim
     mkdir -p "$HOME/.thinkvim.d"
     cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
-    zsh scripts/install.sh
+    bash scripts/install.sh
     npm install -g dockerfile-language-server-nodejs bash-language-server intelephense
 
 }

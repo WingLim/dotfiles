@@ -124,7 +124,7 @@ install-thinkvim() {
     mkdir -p "$HOME/.thinkvim.d"
     cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
     cd ~/.config/nvim || exit
-    yes | bash scripts/install.sh
+    echo y | bash scripts/install.sh
     yarn global add \
         dockerfile-language-server-nodejs \
         bash-language-server intelephense

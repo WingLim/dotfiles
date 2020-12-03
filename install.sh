@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# check system and set installer
 check_system() {
     if [ "$(uname)" == "Darwin" ]; then
         if ! [ -x "$(command -v brew)" ]; then
@@ -17,6 +18,7 @@ check_system() {
     fi
 }
 
+# set node package name and update software
 set_system() {
     case "$OS" in
         "Darwin")
@@ -62,9 +64,9 @@ install_package() {
             cmake
             gcc
         )
+    # if not mac, install below lib for compile python
     if ! [ "$OS" == "Darwin" ];then
         __pkg_to_be_installed+=(
-            # for python compile
             libreadline-dev
             libbz2-dev
             libffi-dev
@@ -146,6 +148,7 @@ install_thinkvim() {
     mkdir -p "$HOME/.thinkvim.d"
     cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
     cd ~/.config/nvim || exit
+    # this install script will install bat and ripgrep, may need to confirm
     echo y | bash scripts/install.sh
     yarn global add \
         dockerfile-language-server-nodejs \
@@ -155,6 +158,7 @@ install_thinkvim() {
 install_ccls() {
     hint "* Installing ccls"
     if ! [ -x "$(command -v ccls)" ]; then
+        # if $cdn is 1, download pre-built binaries from tsinghua mirror
         if [ "$1" == 1 ]; then
             LLVM_URL=https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
         else
@@ -172,6 +176,7 @@ install_ccls() {
     fi
 }
 
+# add function for shell enable clash proxy
 clash_proxy() {
     hint "* Setting clash proxy"
     if [[ $(uname -r) =~ "microsoft" ]]

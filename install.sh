@@ -160,8 +160,8 @@ install_ccls() {
         fi
         mkdir -p "$HOME/src"
         wget -q "${LLVM_URL}"
-        tar -xf clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
-        mv "$HOME/src/"clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}" "$HOME/src/"clang+llvm-11.0.0
+        tar -xf clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz -C "$HOME/src"
+        mv "$HOME/src/clang+llvm-11.0.0-x86_64-${CCLS_PLATFORM}" "$HOME/src/clang+llvm-11.0.0"
         
         git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         cd ccls || exit

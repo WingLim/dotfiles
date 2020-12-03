@@ -151,7 +151,7 @@ install_thinkvim() {
 install_ccls() {
     hint "* Installing ccls"
     if ! [ -x "$(command -v ccls)" ]; then
-        if [ "$1" == "CN" ]; then
+        if [ "$1" == 1 ]; then
             LLVM_URL=https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
         else
             LLVM_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
@@ -207,6 +207,27 @@ hint() {
     echo -e "\033[32m$1\033[0m"
 }
 
+ARGS=$(getopt --long novim,cdn -- "$@")
+eval set -- "${ARGS}"
+
+while [ -n "$1" ]
+do
+    case "$1" in
+    --novim)
+        novim=1
+    ;;
+    --cdn)
+        cdn=1
+    ;;
+    --)
+        shift
+        break
+    ;;
+    esac
+shift
+done
+
+
 check_system
 set_system
 install_package
@@ -216,7 +237,9 @@ install_pyenv
 install_python
 install_goenv
 zshrc
-install_thinkvim
-install_ccls "$1"
+if ! [ "$novim" == 1 ];then
+    install_thinkvim
+    install_ccls "$cdn"
+fi
 clash_proxy
 finish

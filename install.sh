@@ -136,6 +136,8 @@ install_goenv() {
 
 install_thinkvim() {
     mkdir -p "$HOME/.npm-global"
+    export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+    export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
     git clone --depth=1 https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim
     npm install -g yarn
     pyenv virtualenv 3.9.0 neovim

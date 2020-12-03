@@ -122,6 +122,14 @@ install_goenv() {
     hint "* Installing syndbg/goenv"
 
     git clone https://github.com/syndbg/goenv.git "$HOME/.goenv"
+
+    export GOENV_ROOT="$HOME/.goenv"
+    export PATH="$GOENV_ROOT/bin:$PATH"
+    eval "$(goenv init -)"
+
+    hint "* Installing golang 1.15.5"
+    goenv install 1.15.5
+    goenv global 1.15.5
 }
 
 install_thinkvim() {

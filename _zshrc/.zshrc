@@ -122,9 +122,8 @@ export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 
 export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
 export GOENV_ROOT="$HOME/.goenv"
-export GOPATH="$HOME/go"
 
-export PATH="$N_PREFIX/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PYENV_ROOT/shims:$GOENV_ROOT/bin:$GOENV_ROOT/shims:$PATH:$GOPATH/bin"
+export PATH="$GOENV_ROOT/bin:$N_PREFIX/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PYENV_ROOT/shims:$GOENV_ROOT/bin:$GOENV_ROOT/shims:$PATH:$GOPATH/bin"
 
 # Lazyload Function
 

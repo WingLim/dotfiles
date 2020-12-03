@@ -115,7 +115,7 @@ install-thinkvim() {
     mkdir -p "$HOME/.thinkvim.d"
     cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
     bash scripts/install.sh
-    npm install -g dockerfile-language-server-nodejs bash-language-server intelephense
+    yarn global add dockerfile-language-server-nodejs bash-language-server intelephense
 
 }
 
@@ -164,6 +164,7 @@ zshrc() {
 
 install-python() {
     echo "* Installing python 3.9.0"
+    pyenv -v
     pyenv install 3.9.0
     pyenv global 3.9.0
 }

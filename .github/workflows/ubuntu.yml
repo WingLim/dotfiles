@@ -3,6 +3,8 @@ name: Ubuntu
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - "README.md"
   pull_request:
     branches: [ main ]
 
@@ -10,8 +12,16 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v2
 
+      - name: cache llvm
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/src
+            !~/src/ccls
+          key: ${{ runner.os }}-${{ hashFiles('**/.llvm-version') }}
       - name: test in ubuntu
-        run: curl -o- https://raw.githubusercontent.com/WingLim/dotfiles/main/install.sh | bash
+        run: bash install.sh
 
      

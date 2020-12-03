@@ -111,7 +111,9 @@ install_pyenv() {
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
+}
 
+install_python() {
     hint "* Installing python 3.9.0"
     pyenv -v
     pyenv install 3.9.0
@@ -192,14 +194,13 @@ zshrc() {
     hint "* Import .zshrc"
     cat "$HOME/dotfiles/_zshrc/.zshrc" > "$HOME/.zshrc"
     cat "$HOME/dotfiles/p10k/.p10k.zsh" > "$HOME/.p10k.zsh"
-    chsh -s /bin/zsh
-    # shellcheck source=/dev/null
-    source "$HOME/.zshrc"
 }
 
 finish() {
     hint "* Clean up..."
     rm -rf "$HOME/dotfiles"
+    hint "* Please use below command to set default shell"
+    hint "chsh -s /bin/zsh"
 }
 
 hint() {

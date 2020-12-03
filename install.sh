@@ -182,9 +182,14 @@ install_ccls() {
             LLVM_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
         fi
         mkdir -p "$HOME/src"
-        wget -q "${LLVM_URL}"
-        tar -xf clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz -C "$HOME/src"
-        mv "$HOME/src/clang+llvm-11.0.0-x86_64-${CCLS_PLATFORM}" "$HOME/src/clang+llvm-11.0.0"
+	# if never download llvm pre-build binaries, download and move it
+	if ! [ -d "$HOME/src/clang+llvm-11.0.0" ]
+	    wget -q "${LLVM_URL}"
+            tar -xf clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz -C "$HOME/src"
+            mv "$HOME/src/clang+llvm-11.0.0-x86_64-${CCLS_PLATFORM}" "$HOME/src/clang+llvm-11.0.0"
+	else
+	    warn "! LLVM pre-built binaries alread downloaded"
+	fi
         
         git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         cd ccls || exit

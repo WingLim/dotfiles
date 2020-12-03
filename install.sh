@@ -6,14 +6,14 @@ check-system() {
             echo "* Installing Homebrew"
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         fi
-        export INSTALLER="brew install"
-        export OS="Darwin"
+        INSTALLER="brew install"
+        OS="Darwin"
     elif [ -x "$(command -v apt-get)" ]; then
-        export INSTALLER="sudo apt-get install -y"
-        export OS="Ubuntu"
+        INSTALLER="sudo apt-get install -y"
+        OS="Ubuntu"
     elif [ -x "$(command) -v pacman" ]; then
-        export INSTALLER="sudo pacman -S --noconfirm"
-        export OS="Manjaro"
+        INSTALLER="sudo pacman -S --noconfirm"
+        OS="Manjaro"
     fi
 }
 
@@ -22,15 +22,18 @@ set-system() {
         "Darwin")
             NODE_NAME="node"
             ccls-platform="apple-darwin"
+            $INSTALLER update
         ;;
         "Ubuntu")
             curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
             NODE_NAME="nodejs"
             ccls-platform="linux-gnu-ubuntu-20.04"
+            $INSTALLER update
         ;;
         "Manjaro")
             NODE_NAME="nodejs npm"
             ccls-platform="linux-gnu-ubuntu-20.04"
+            $INSTALLER -u
         ;;
         *)
             echo "Unsupport OS"
@@ -62,25 +65,6 @@ install-package() {
     for __pkg in "${__pkg_to_be_installed[@]}"; do
         $INSTALLER "$__pkg"
     done
-}
-
-install-node() {
-    case "$OS" in
-        "Darwin")
-            $INSTALLER node
-        ;;
-        "Ubuntu")
-            curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-            $INSTALLER nodejs
-        ;;
-        "Manjaro")
-            $INSTALLER nodejs npm
-        ;;
-        *)
-            echo "Unsupport OS"
-        ;;
-    esac
-    
 }
 
 setup-omz() {
@@ -186,8 +170,8 @@ finish() {
 }
 
 check-system
+set-system
 install-package
-install-node
 clone-repo
 setup-omz
 install-pyenv

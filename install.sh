@@ -61,6 +61,15 @@ install-package() {
         cmake
         gcc
         clang
+
+        # for python
+        libreadline-dev
+        libbz2-dev
+        libffi-dev
+        libgdbm-dev
+        libsqlite3-dev
+        libssl-dev
+        zlib1g-dev
     )
 
     for __pkg in "${__pkg_to_be_installed[@]}"; do

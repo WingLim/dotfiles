@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-check-system() {
+check_system() {
     if [ "$(uname)" == "Darwin" ]; then
         if ! [ -x "$(command -v brew)" ]; then
             echo "* Installing Homebrew"
@@ -17,7 +17,7 @@ check-system() {
     fi
 }
 
-set-system() {
+set_system() {
     case "$OS" in
         "Darwin")
             NODE_NAME="node"
@@ -42,14 +42,14 @@ set-system() {
     esac
 }
 
-clone-repo() {
+clone_repo() {
     hint "* Cloning WingLim/dotfiles"
     
     git clone https://github.com/WingLim/dotfiles "$HOME/dotfiles"
     rm -rf "$HOME/dotfiles/.git"
 }
 
-install-package() {
+install_package() {
     hint "* Installing packages"
     __pkg_to_be_installed=(
         zsh
@@ -78,7 +78,7 @@ install-package() {
     done
 }
 
-setup-omz() {
+setup_omz() {
     hint "* Installing Oh-My-Zsh"
     curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
     hint "* Installing ZSH Plugins & Themes:"
@@ -97,7 +97,7 @@ setup-omz() {
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 }
 
-install-pyenv() {
+install_pyenv() {
     hint "* Installing pyenv"
     local GITHUB="https://github.com"
     local PYENV_ROOT="$HOME/.pyenv"
@@ -112,20 +112,20 @@ install-pyenv() {
     eval "$(pyenv virtualenv-init -)"
 }
 
-install-goenv() {
+install_goenv() {
     hint "* Installing syndbg/goenv"
 
     git clone https://github.com/syndbg/goenv.git "$HOME/.goenv"
 }
 
-install-python() {
+install_pyenv_python() {
     hint "* Installing python 3.9.0"
     pyenv -v
     pyenv install 3.9.0
     pyenv global 3.9.0
 }
 
-install-thinkvim() {
+install_thinkvim() {
     mkdir -p "$HOME/.npm-global"
     git clone --depth=1 https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim
     npm install -g yarn
@@ -139,7 +139,7 @@ install-thinkvim() {
         bash-language-server intelephense
 }
 
-install-ccls() {
+install_ccls() {
     hint "* Installing ccls"
     if ! [ -x "$(command -v ccls)" ]; then
         if [ "$1" == "CN" ]; then
@@ -157,7 +157,7 @@ install-ccls() {
     fi
 }
 
-clash-proxy() {
+clash_proxy() {
     hint "* Setting clash proxy"
     if [[ $(uname -r) =~ "microsoft" ]]
     then
@@ -199,16 +199,16 @@ hint() {
     echo -e "\033[32m$1\033[0m"
 }
 
-check-system
-set-system
-install-package
-clone-repo
-setup-omz
-install-pyenv
-install-goenv
+check_system
+set_system
+install_package
+clone_repo
+setup_omz
+install_pyenv
+install_goenv
 zshrc
-install-python
-install-thinkvim
-install-ccls "$1"
-clash-proxy
+install_pyenv_python
+install_thinkvim
+install_ccls "$1"
+clash_proxy
 finish

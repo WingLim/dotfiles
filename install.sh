@@ -7,10 +7,10 @@ check-system() {
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         fi
         export INSTALLER="brew install"
-    else
-        if [ -x "$(command -v apt-get)" ]; then
-            export INSTALLER="sudo apt-get install -y"
-        fi
+    elif [ -x "$(command -v apt-get)" ]; then
+        export INSTALLER="sudo apt-get install -y"
+    elif [ -x "$(command) -v pacman" ]; then
+        export INSTALLER="sudo pacman -S --noconfirm"
     fi
 }
 

@@ -43,7 +43,7 @@ set-system() {
 }
 
 clone-repo() {
-    echo "* Cloning WingLim/dotfiles"
+    hint "* Cloning WingLim/dotfiles"
     
     git clone https://github.com/WingLim/dotfiles "$HOME/dotfiles"
     rm -rf "$HOME/dotfiles/.git"
@@ -78,14 +78,14 @@ install-package() {
 }
 
 setup-omz() {
-    echo "* Installing Oh-My-Zsh"
+    hint "* Installing Oh-My-Zsh"
     curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
-    echo "* Installing ZSH Plugins & Themes:"
-    echo "  - zsh-autosuggestions"
-    echo "  - zsh-completions"
-    echo "  - zsh-z"
-    echo "  - fast-syntax-highlighting"
-    echo "  - powerlevel10k zsh-theme"
+    hint "* Installing ZSH Plugins & Themes:"
+    hint "  - zsh-autosuggestions"
+    hint "  - zsh-completions"
+    hint "  - zsh-z"
+    hint "  - fast-syntax-highlighting"
+    hint "  - powerlevel10k zsh-theme"
 
 
     git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
@@ -97,7 +97,7 @@ setup-omz() {
 }
 
 install-pyenv() {
-    echo "* Installing pyenv"
+    hint "* Installing pyenv"
     local GITHUB="https://github.com"
     local PYENV_ROOT="$HOME/.pyenv"
     git clone "${GITHUB}/pyenv/pyenv.git"            "${PYENV_ROOT}"
@@ -111,7 +111,7 @@ install-pyenv() {
 }
 
 install-goenv() {
-    echo "* Installing syndbg/goenv"
+    hint "* Installing syndbg/goenv"
 
     git clone https://github.com/syndbg/goenv.git "$HOME/.goenv"
 }
@@ -143,7 +143,7 @@ install-ccls() {
 }
 
 clash-proxy() {
-    echo "* Setting clash proxy"
+    hint "* Setting clash proxy"
     if [[ $(uname -r) =~ "microsoft" ]]
     then
         local ip="\$(ip route | grep default | awk '{print \$3}')"
@@ -167,7 +167,7 @@ EOF
 }
 
 zshrc() {
-    echo "* Import .zshrc"
+    hint "* Import .zshrc"
     cat "$HOME/dotfiles/_zshrc/.zshrc" > "$HOME/.zshrc"
     cat "$HOME/dotfiles/p10k/.p10k.zsh" > "$HOME/.p10k.zsh"
     chsh -s /bin/zsh
@@ -176,15 +176,19 @@ zshrc() {
 }
 
 install-python() {
-    echo "* Installing python 3.9.0"
+    hint "* Installing python 3.9.0"
     pyenv -v
     pyenv install 3.9.0
     pyenv global 3.9.0
 }
 
 finish() {
-    echo "* Clean up..."
+    hint "* Clean up..."
     rm -rf "$HOME/dotfiles"
+}
+
+hint() {
+    echo -e "\033[32m$1\033[0m"
 }
 
 check-system

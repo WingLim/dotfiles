@@ -134,8 +134,13 @@ install-thinkvim() {
 install-ccls() {
     hint "* Installing ccls"
     if ! [ -x "$(command -v ccls)" ]; then
+        if [ "$1" == "CN" ]; then
+            LLVM_URL=https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
+        else
+            LLVM_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
+        fi
         mkdir -p "$HOME/src" && cd "$HOME/src" || exit
-        LLVM_URL=https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
+        
         wget "${LLVM_URL}" && tar -xf clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
         git clone --depth=1 --recursive https://github.com/MaskRay/ccls
         cd ccls || exit
@@ -203,6 +208,6 @@ install-goenv
 zshrc
 install-python
 install-thinkvim
-install-ccls
+install-ccls "$1"
 clash-proxy
 finish

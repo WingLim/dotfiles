@@ -159,7 +159,11 @@ install_thinkvim() {
         export NPM_CONFIG_PREFIX="$HOME/.npm-global"
         export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
         git clone --depth=1 https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim
-        npm install -g yarn
+	if [ "$1" == 1 ]; then
+            npm install -g yarn --registry=https://registry.npm.taobao.org
+        else
+	    npm install -g yarn
+	fi
         pyenv virtualenv 3.9.0 neovim
         mkdir -p "$HOME/.thinkvim.d"
         cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
@@ -281,7 +285,7 @@ install_pyenv
 install_goenv
 zshrc
 if ! [ "$novim" == 1 ];then
-    install_thinkvim
+    install_thinkvim "$cdn"
     install_ccls "$cdn"
 fi
 if ! [ "$noproxy" == 1 ]; then

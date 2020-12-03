@@ -52,26 +52,28 @@ clone_repo() {
 install_package() {
     hint "* Installing packages"
     __pkg_to_be_installed=(
-        zsh
-        wget
-        git
-        tree
-        neofetch
-        neovim
-        "$NODE_NAME"
-        cmake
-        gcc
-        clang
-
-        # for python
-        libreadline-dev
-        libbz2-dev
-        libffi-dev
-        libgdbm-dev
-        libsqlite3-dev
-        libssl-dev
-        zlib1g-dev
-    )
+            zsh
+            wget
+            git
+            tree
+            neofetch
+            neovim
+            "$NODE_NAME"
+            cmake
+            gcc
+        )
+    if ! [ "$OS" == "Darwin" ];then
+        __pkg_to_be_installed+=(
+            # for python compile
+            libreadline-dev
+            libbz2-dev
+            libffi-dev
+            libgdbm-dev
+            libsqlite3-dev
+            libssl-dev
+            zlib1g-dev
+        )
+    fi
 
     for __pkg in "${__pkg_to_be_installed[@]}"; do
         $INSTALLER "$__pkg"

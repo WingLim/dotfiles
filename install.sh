@@ -115,18 +115,21 @@ install-thinkvim() {
     mkdir -p "$HOME/.thinkvim.d"
     cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
     bash scripts/install.sh
-    yarn global add dockerfile-language-server-nodejs bash-language-server intelephense
-
+    yarn global add \
+        dockerfile-language-server-nodejs \
+        bash-language-server intelephense
 }
 
 install-ccls() {
-    mkdir -p "$HOME/src" && cd "$HOME/src" || return
-    llvm-url = https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${ccls-platform}".tar.xz
-    wget llvm-url && tar 
-    git clone --depth=1 --recursive https://github.com/MaskRay/ccls
-    cd ccls || return
-    cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$HOME/src/clang+llvm-11.0.0-x86_64-${ccls-platform}"
-    cmake --build Release
+    if ! [ -x "$(command -v ccls)" ]; then
+        mkdir -p "$HOME/src" && cd "$HOME/src" || return
+        llvm-url = https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${ccls-platform}".tar.xz
+        wget llvm-url && tar 
+        git clone --depth=1 --recursive https://github.com/MaskRay/ccls
+        cd ccls || return
+        cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$HOME/src/clang+llvm-11.0.0-x86_64-${ccls-platform}"
+        cmake --build Release
+    fi
 }
 
 clash-proxy() {

@@ -155,8 +155,7 @@ zshrc() {
     cat "$HOME/dotfiles/_zshrc/.zshrc" > "$HOME/.zshrc"
     cat "$HOME/dotfiles/p10k/.p10k.zsh" > "$HOME/.p10k.zsh"
     chsh -s /bin/zsh
-    # shellcheck source=/dev/null
-    source "$HOME/.zshrc"
+    zsh
 }
 
 install-python() {

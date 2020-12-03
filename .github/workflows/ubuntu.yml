@@ -17,9 +17,7 @@ jobs:
       - name: cache llvm
         uses: actions/cache@v2
         with:
-          path: |
-            ~/src
-            !~/src/ccls
+          path: ~/src
           key: ${{ runner.os }}-${{ hashFiles('**/.llvm-version') }}
       - name: test in ubuntu
         run: bash install.sh

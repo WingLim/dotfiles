@@ -252,7 +252,8 @@ warn() {
     echo -e "\033[33m$1\033[0m"
 }
 
-ARGS=$(getopt --long novim,cdn,noproxy -- "$@")
+# getopt must have short option, otherwise it can not parse long option
+ARGS=$(getopt -o h --long novim,cdn,noproxy -- "$@")
 eval set -- "${ARGS}"
 
 while [ -n "$1" ]

@@ -155,7 +155,7 @@ install_goenv() {
 install_thinkvim() {
     ok "* Installing ThinkVim"
     if ! [ -d "$HOME/.thinkvim.d" ]; then
-        mkdir -p "$HOME/.npm-global"
+        mkdir -p "$HOME/.npm-global/lib"
         export NPM_CONFIG_PREFIX="$HOME/.npm-global"
         export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
         git clone --depth=1 https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim

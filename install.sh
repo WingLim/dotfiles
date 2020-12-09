@@ -23,19 +23,16 @@ set_system() {
     case "$OS" in
         "Darwin")
             NODE_NAME="node"
-            CCLS_PLATFORM="apple-darwin"
             brew update
         ;;
         "Ubuntu")
             curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
             NODE_NAME="nodejs"
-            CCLS_PLATFORM="linux-gnu-ubuntu-20.04"
             export DEBIAN_FRONTEND=noninteractive
             sudo apt-get update -y
         ;;
         "Manjaro")
             NODE_NAME="nodejs npm"
-            CCLS_PLATFORM="linux-gnu-ubuntu-20.04"
             sudo pacman -Syu --noconfirm
         ;;
         *)
@@ -69,9 +66,6 @@ install_package() {
     # if not mac, install below lib for compile python
     if ! [ "$OS" == "Darwin" ];then
         __pkg_to_be_installed+=(
-	    # for compile ccls
-	    clang
-
             libreadline-dev
             libbz2-dev
             libffi-dev
@@ -159,50 +153,26 @@ install_thinkvim() {
         export NPM_CONFIG_PREFIX="$HOME/.npm-global"
         export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
         git clone --depth=1 https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim
-	if [ "$1" == 1 ]; then
-            npm install -g yarn --registry=https://registry.npm.taobao.org
-        else
-	    npm install -g yarn
-	fi
+        if [ "$1" == 1 ]; then
+                npm install -g yarn --registry=https://registry.npm.taobao.org
+            else
+            npm install -g yarn
+        fi
         pyenv virtualenv 3.9.0 neovim
         mkdir -p "$HOME/.thinkvim.d"
         cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
         cd ~/.config/nvim || exit
         # this install script will install bat and ripgrep, may need to confirm
         echo y | bash scripts/install.sh
+
+        # install lsp for neovim
         yarn global add \
             dockerfile-language-server-nodejs \
             bash-language-server intelephense
+        # use package manager to install ccls
+        $INSTALLER ccls
     else
         warn "! ThinkVim alread installed"
-    fi
-}
-
-install_ccls() {
-    ok "* Installing ccls"
-    if ! [ -x "$(command -v ccls)" ]; then
-        # if $cdn is 1, download pre-built binaries from tsinghua mirror
-        if [ "$1" == 1 ]; then
-            LLVM_URL=https://mirrors.tuna.tsinghua.edu.cn/github-release/llvm/llvm-project/LLVM%2011.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
-        else
-            LLVM_URL=https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz
-        fi
-        mkdir -p "$HOME/src"
-	# if never download llvm pre-build binaries, download and move it
-	if ! [ -d "$HOME/src/clang+llvm-11.0.0" ]; then
-	    wget -q "${LLVM_URL}"
-            tar -xf clang+llvm-11.0.0-x86_64-"${CCLS_PLATFORM}".tar.xz -C "$HOME/src"
-            mv "$HOME/src/clang+llvm-11.0.0-x86_64-${CCLS_PLATFORM}" "$HOME/src/clang+llvm-11.0.0"
-	else
-	    warn "! LLVM pre-built binaries alread downloaded"
-	fi
-        
-        git clone --depth=1 --recursive https://github.com/MaskRay/ccls
-        cd ccls || exit
-        cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$HOME/src/clang+llvm-11.0.0"
-        sudo cmake --build Release --target install
-    else
-        warn "! CCLS alread installed"
     fi
 }
 
@@ -288,7 +258,6 @@ install_goenv
 zshrc
 if ! [ "$novim" == 1 ];then
     install_thinkvim "$cdn"
-    install_ccls "$cdn"
 fi
 if ! [ "$noproxy" == 1 ]; then
     clash_proxy

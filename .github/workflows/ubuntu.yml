@@ -14,11 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: cache llvm
-        uses: actions/cache@v2
-        with:
-          path: ~/src
-          key: ${{ runner.os }}-${{ hashFiles('**/.llvm-version') }}
       - name: test in ubuntu
         run: bash install.sh
 

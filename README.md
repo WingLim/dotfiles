@@ -27,9 +27,7 @@ If you don't want to use this neovim configuration, use `--novim` to not install
 ### `--cdn`
 **Only work WITHOUT `--novim`**
 
-For using C/C++/ObjC LSP(Language Server Protocol) in neovim, script will download LLVM Pre-Built Binaries to compile and install [ccls](https://github.com/MaskRay/ccls).
-
-Use `--cdn` to download LLVM Pre-Built Binaries from Tsinghua Mirror.
+Install yarn with aliyun npm mirror.
 
 ### `--noproxy`
 

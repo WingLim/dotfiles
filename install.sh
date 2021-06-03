@@ -45,7 +45,7 @@ set_system() {
 clone_repo() {
     ok "* Cloning WingLim/dotfiles"
     
-    git clone https://github.com/WingLim/dotfiles "$HOME/dotfiles"
+    git clone https://github.com/WingLim/dotfiles.git "$HOME/dotfiles"
     rm -rf "$HOME/dotfiles/.git"
 }
 

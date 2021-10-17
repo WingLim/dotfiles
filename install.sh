@@ -146,6 +146,11 @@ install_goenv() {
     fi
 }
 
+install_spacevim() {
+    ok "* Installing SpaceVim"
+    curl -sLf https://spacevim.org/install.sh | bash
+}
+
 # add function for shell enable clash proxy
 clash_proxy() {
     ok "* Setting clash proxy"

@@ -10,11 +10,8 @@ Inspired by [SukkaW/dotfiles](https://github.com/SukkaW/dotfiles)
 
 ```bash
 curl -o- https://raw.githubusercontent.com/WingLim/dotfiles/main/install.sh | bash
-```
 
-### Use CDN
-
-```bash
+# jsdelivr cdn
 curl -o- https://cdn.jsdelivr.net/gh/WingLim/dotfiles@main/install.sh | bash
 ```
 
@@ -34,11 +31,8 @@ Default `nameserver` is `223.5.5.5`
 
 ```bash
 curl -o- https://raw.githubusercontent.com/WingLim/dotfiles/main/wsl/set_nameserver.sh | bash
-```
 
-### Use CDN
-
-```bash
+# jsdelivr cdn
 curl -o- https://cdn.jsdelivr.net/gh/WingLim/dotfiles@main/wsl/set_nameserver.sh | bash
 ```
 

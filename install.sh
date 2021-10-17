@@ -146,36 +146,6 @@ install_goenv() {
     fi
 }
 
-install_thinkvim() {
-    ok "* Installing ThinkVim"
-    if ! [ -d "$HOME/.thinkvim.d" ]; then
-        mkdir -p "$HOME/.npm-global/lib"
-        export NPM_CONFIG_PREFIX="$HOME/.npm-global"
-        export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
-        git clone --depth=1 https://github.com/hardcoreplayers/ThinkVim.git ~/.config/nvim
-        if [ "$1" == 1 ]; then
-                npm install -g yarn --registry=https://registry.npm.taobao.org
-            else
-            npm install -g yarn
-        fi
-        pyenv virtualenv 3.9.0 neovim
-        mkdir -p "$HOME/.thinkvim.d"
-        cat "$HOME/dotfiles/thinkvim/plugins.yaml" > "$HOME/.thinkvim.d/plugins.yaml"
-        cd ~/.config/nvim || exit
-        # this install script will install bat and ripgrep, may need to confirm
-        echo y | bash scripts/install.sh
-
-        # install lsp for neovim
-        yarn global add \
-            dockerfile-language-server-nodejs \
-            bash-language-server intelephense
-        # use package manager to install ccls
-        $INSTALLER ccls
-    else
-        warn "! ThinkVim alread installed"
-    fi
-}
-
 # add function for shell enable clash proxy
 clash_proxy() {
     ok "* Setting clash proxy"
@@ -230,12 +200,6 @@ eval set -- "${ARGS}"
 while [ -n "$1" ]
 do
     case "$1" in
-    --novim)
-        novim=1
-    ;;
-    --cdn)
-        cdn=1
-    ;;
     --noproxy)
         noproxy=1
     ;;
@@ -256,9 +220,6 @@ setup_omz
 install_pyenv
 install_goenv
 zshrc
-if ! [ "$novim" == 1 ];then
-    install_thinkvim "$cdn"
-fi
 if ! [ "$noproxy" == 1 ]; then
     clash_proxy
 fi

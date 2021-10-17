@@ -140,9 +140,9 @@ install_goenv() {
         export PATH="$GOENV_ROOT/bin:$PATH"
         eval "$(goenv init -)"
 
-        ok "* Installing golang 1.15.5"
-        goenv install 1.15.5
-        goenv global 1.15.5
+        ok "* Installing golang 1.17.2"
+        goenv install 1.17.2
+        goenv global 1.17.2
     else
         warn "! Goenv already installed"
     fi

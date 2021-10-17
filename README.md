@@ -12,22 +12,13 @@ Inspired by [SukkaW/dotfiles](https://github.com/SukkaW/dotfiles)
 curl -o- https://raw.githubusercontent.com/WingLim/dotfiles/main/install.sh | bash
 ```
 
-**Use CDN**
+### Use CDN
+
 ```bash
 curl -o- https://cdn.jsdelivr.net/gh/WingLim/dotfiles@main/install.sh | bash
 ```
 
 ## Options
-
-### `--novim`
-Script will auto install [ThinkVim](https://github.com/hardcoreplayers/ThinkVim) to configuare neovim.
-
-If you don't want to use this neovim configuration, use `--novim` to not install it.
-
-### `--cdn`
-**Only work WITHOUT `--novim`**
-
-Install yarn with aliyun npm mirror.
 
 ### `--noproxy`
 
@@ -45,7 +36,8 @@ Default `nameserver` is `223.5.5.5`
 curl -o- https://raw.githubusercontent.com/WingLim/dotfiles/main/wsl/set_nameserver.sh | bash
 ```
 
-**Use CDN**
+### Use CDN
+
 ```bash
 curl -o- https://cdn.jsdelivr.net/gh/WingLim/dotfiles@main/wsl/set_nameserver.sh | bash
 ```

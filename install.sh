@@ -102,7 +102,7 @@ setup_omz() {
         
         git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
     else
-        warn "! Oh-My-Zsh alread installed"
+        warn "! Oh-My-Zsh already installed"
     fi
 }
 
@@ -127,7 +127,7 @@ install_pyenv() {
         pyenv install 3.9.0
         pyenv global 3.9.0
     else
-        warn "! Pyenv alread installed"
+        warn "! Pyenv already installed"
     fi
 }
 
@@ -144,13 +144,17 @@ install_goenv() {
         goenv install 1.15.5
         goenv global 1.15.5
     else
-        warn "! Goenv alread installed"
+        warn "! Goenv already installed"
     fi
 }
 
 install_spacevim() {
     ok "* Installing SpaceVim"
-    curl -sLf https://spacevim.org/install.sh | bash
+    if ! [ -d "$HOME/.SpaceVim" ]; then
+        curl -sLf https://spacevim.org/install.sh | bash
+    else 
+        warn "! SpaceVim already installed"
+    fi
 }
 
 # add function for shell enable clash proxy
@@ -226,6 +230,7 @@ clone_repo
 setup_omz
 install_pyenv
 install_goenv
+install_spacevim
 zshrc
 if ! [ "$noproxy" == 1 ]; then
     clash_proxy

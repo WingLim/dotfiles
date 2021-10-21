@@ -128,18 +128,15 @@ install_pyenv() {
 
 install_go() {
     ok "* Installing go"
-    if ! [ -d "$HOME/.go" ]; then
-        wget -q -O - https://git.io/vQhTU | bash
-        go version
-    else
-        warn "! Go already installed"
-        go version
-    fi
+    wget -q -O - https://git.io/vQhTU | bash
+    go version
 }
 
 install_pnpm_node() {
     wget -qO- https://get.pnpm.io/install.sh | sh -
     pnpm env use --global lts
+    pnpm --version
+    node --version
 }
 
 install_spacevim() {

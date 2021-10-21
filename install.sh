@@ -130,15 +130,15 @@ install_go() {
     ok "* Installing go"
     wget -q -O - https://git.io/vQhTU | bash
     source ~/.bashrc
-    ok go version
+    go version
 }
 
 install_pnpm_node() {
     wget -qO- https://get.pnpm.io/install.sh | sh -
     source ~/.bashrc
     pnpm env use --global lts
-    ok pnpm --version
-    ok node --version
+    ok $(pnpm --version)
+    ok $(node --version)
 }
 
 install_spacevim() {

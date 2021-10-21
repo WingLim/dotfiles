@@ -134,6 +134,7 @@ install_go() {
 
 install_pnpm_node() {
     wget -qO- https://get.pnpm.io/install.sh | sh -
+    source ~/.bashrc
     pnpm env use --global lts
     pnpm --version
     node --version

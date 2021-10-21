@@ -61,7 +61,7 @@ install_package() {
             "$NODE_NAME"
             cmake
             gcc
-	    ruby
+	        ruby
         )
     # if not mac, install below lib for compile python
     if ! [ "$OS" == "Darwin" ];then

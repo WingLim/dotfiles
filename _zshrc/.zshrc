@@ -111,10 +111,13 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Go root and path
+export GOROOT="$HOME/.go"
+export GOPATH="$HOME/go"
 
 export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
 
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$GOROOT/bin:$GOPATH/bin:$PYENV_ROOT/bin:$PATH"
 
 # Lazyload Function
 

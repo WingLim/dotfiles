@@ -129,15 +129,16 @@ install_pyenv() {
 install_go() {
     ok "* Installing go"
     wget -q -O - https://git.io/vQhTU | bash
-    go version
+    source ~/.bashrc
+    ok go version
 }
 
 install_pnpm_node() {
     wget -qO- https://get.pnpm.io/install.sh | sh -
     source ~/.bashrc
     pnpm env use --global lts
-    pnpm --version
-    node --version
+    ok pnpm --version
+    ok node --version
 }
 
 install_spacevim() {

@@ -117,10 +117,10 @@ install_pyenv() {
         eval "$(pyenv init -)"
         eval "$(pyenv virtualenv-init -)"
         
-        ok "* Installing python 3.9.0"
+        ok "* Installing python 3.10.0"
         pyenv -v
-        pyenv install 3.9.0
-        pyenv global 3.9.0
+        pyenv install 3.10.0
+        pyenv global 3.10.0
     else
         warn "! Pyenv already installed"
     fi

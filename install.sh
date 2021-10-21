@@ -131,20 +131,14 @@ install_pyenv() {
     fi
 }
 
-install_goenv() {
-    ok "* Installing syndbg/goenv"
-    if ! [ -d "$HOME/.goenv" ]; then
-        git clone https://github.com/syndbg/goenv.git "$HOME/.goenv"
-
-        export GOENV_ROOT="$HOME/.goenv"
-        export PATH="$GOENV_ROOT/bin:$PATH"
-        eval "$(goenv init -)"
-
-        ok "* Installing golang 1.17.2"
-        goenv install 1.17.2
-        goenv global 1.17.2
+install_go() {
+    ok "* Installing go"
+    if ! [ -d "$HOME/.go" ]; then
+        wget -q -O - https://git.io/vQhTU | bash
+        go version
     else
-        warn "! Goenv already installed"
+        warn "! Go already installed"
+        go version
     fi
 }
 
@@ -229,7 +223,7 @@ install_package
 clone_repo
 setup_omz
 install_pyenv
-install_goenv
+install_go
 install_spacevim
 zshrc
 if ! [ "$noproxy" == 1 ]; then

@@ -115,9 +115,12 @@ export LANG=en_US.UTF-8
 export GOROOT="$HOME/.go"
 export GOPATH="$HOME/go"
 
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+
 export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
 
-export PATH="$GOROOT/bin:$GOPATH/bin:$PYENV_ROOT/bin:$PATH"
+export PATH="$GOROOT/bin:$GOPATH/bin:$PYENV_ROOT/bin:$PNPM_HOME:$PATH"
 
 # Lazyload Function
 

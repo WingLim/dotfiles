@@ -111,19 +111,10 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Set tj/n Path
-export N_PREFIX="$HOME/.n"
-export N_PRESERVE_NPM=1
-
-# Set NPM Global Path
-export NPM_CONFIG_PREFIX="$HOME/.npm-global"
-# Create .npm-global folder if not exists
-[[ ! -d "$HOME/.npm-global" ]] && mkdir -p $HOME/.npm-global
 
 export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
-export GOENV_ROOT="$HOME/.goenv"
 
-export PATH="$N_PREFIX/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$NPM_CONFIG_PREFIX/bin:$PYENV_ROOT/bin:$GOENV_ROOT/bin:$PATH:$GOPATH/bin"
+export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Lazyload Function
 

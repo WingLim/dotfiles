@@ -22,17 +22,13 @@ check_system() {
 set_system() {
     case "$OS" in
         "Darwin")
-            NODE_NAME="node"
             brew update
         ;;
         "Ubuntu")
-            curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-            NODE_NAME="nodejs"
             export DEBIAN_FRONTEND=noninteractive
             sudo apt-get update -y
         ;;
         "Manjaro")
-            NODE_NAME="nodejs npm"
             sudo pacman -Syu --noconfirm
         ;;
         *)
@@ -58,7 +54,6 @@ install_package() {
             tree
             neofetch
             neovim
-            "$NODE_NAME"
             cmake
             gcc
 	        ruby
@@ -140,6 +135,11 @@ install_go() {
         warn "! Go already installed"
         go version
     fi
+}
+
+install_pnpm_node() {
+    wget -qO- https://get.pnpm.io/install.sh | sh -
+    pnpm env use --global lts
 }
 
 install_spacevim() {
@@ -224,6 +224,7 @@ clone_repo
 setup_omz
 install_pyenv
 install_go
+install_pnpm_node
 install_spacevim
 zshrc
 if ! [ "$noproxy" == 1 ]; then

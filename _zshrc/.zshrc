@@ -118,9 +118,13 @@ export GOPATH="$HOME/go"
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 
+# pyenv
 export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
 
-export PATH="$GOROOT/bin:$GOPATH/bin:$PYENV_ROOT/bin:$PNPM_HOME:$PATH"
+# deno
+export DENO_INSTALL="$HOME/.deno"
+
+export PATH="$DENO_INSTALL/bin:$GOROOT/bin:$GOPATH/bin:$PYENV_ROOT/bin:$PNPM_HOME:$PATH"
 
 # Lazyload Function
 

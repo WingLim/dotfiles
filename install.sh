@@ -133,6 +133,11 @@ install_go() {
     go version
 }
 
+install_deno() {
+    ok "* Installing deno"
+    curl -fsSL https://deno.land/x/install/install.sh | sh
+}
+
 install_pnpm_node() {
     wget -qO- https://get.pnpm.io/install.sh | sh -
     source ~/.bashrc
@@ -223,6 +228,7 @@ clone_repo
 setup_omz
 install_pyenv
 install_go
+install_deno
 install_pnpm_node
 install_spacevim
 zshrc

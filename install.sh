@@ -169,13 +169,16 @@ clash_proxy() {
 # Clash proxy for WSL
 
 proxy() {
+    noproxy
     export ALL_PROXY="http://\$CLASH_IP:7890"
-    echo "ProxyCommand nc -X 5 -x \$CLASH_IP:7890 %h %p >> ~/.ssh/config"
+    echo "ProxyCommand nc -X 5 -x \$CLASH_IP:7890 %h %p" >> ~/.ssh/config
+    echo "Set proxy"
 }
 
 noproxy() {
     unset ALL_PROXY
     sed '/ProxyCommand/d' ~/.ssh/config > ~/.ssh/config.bk && mv ~/.ssh/config.bk ~/.ssh/config
+    echo "Unset proxy"
 }
 EOF
 }

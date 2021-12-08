@@ -58,6 +58,8 @@ install_package() {
             gcc
 	        ruby
             lua
+            gpg
+            gawk
         )
     # If not mac, install below lib for compile python
     if ! [ "$OS" == "Darwin" ];then
@@ -91,15 +93,15 @@ install_asdf() {
     mkdir -p $HOME/.config/fish/completions
     ln -s $HOME/.asdf/completions/asdf.fish $HOME/.config/fish/completions
 
-    asdf_bin=$HOME/.asdf/bin/asdf
+    source $HOME/.asdf/asdf.sh
 
     ok "* Installing Nodejs"
-    $asdf_bin plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-    $asdf_bin install nodejs lts
+    asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+    asdf install nodejs lts
 
     ok "*Installing Python"
-    $asdf_bin plugin add python https://github.com/danhper/asdf-python.git
-    $asdf_bin install python 3.10.0
+    asdf plugin add python https://github.com/danhper/asdf-python.git
+    asdf install python 3.10.0
 }
 
 install_deno() {
@@ -146,6 +148,7 @@ EOF
 
 import_fish_config() {
     ok "* Import fish config"
+    echo $(which fish) | sudo tee -a /etc/shells
     cat "$HOME/dotfiles/fish/config.fish" > "$HOME/.config/fish/config.fish"
 }
 

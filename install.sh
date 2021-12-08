@@ -48,7 +48,7 @@ clone_repo() {
 install_package() {
     ok "* Installing packages"
     __pkg_to_be_installed=(
-            zsh
+            fish
             wget
             git
             tree
@@ -85,49 +85,26 @@ install_starship() {
     sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y -b $HOME/.starship/bin
 }
 
-install_zsh_plugins() {
-    ok "* Installing ZSH Plugins"
-    ok "  - zsh-autosuggestions"
-    ok "  - zsh-completions"
-    ok "  - fast-syntax-highlighting"
+install_asdf() {
+    ok "* Installing asdf"
+    git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch v0.8.1
+    mkdir -p $HOME/.config/fish/completions
+    ln -s $HOME/.asdf/completions/asdf.fish $HOME/.config/fish/completions
 
-    mkdir -p "$HOME/.zsh/plugins"
+    asdf_bin=$HOME/.asdf/bin/asdf
 
-    git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/plugins/zsh-autosuggestions"
-    git clone https://github.com/zsh-users/zsh-completions "$HOME/.zsh/plugins/zsh-completions"
-    git clone https://github.com/zdharma/fast-syntax-highlighting.git "$HOME/.zsh/plugins/fast-syntax-highlighting"
-    git clone https://github.com/skywind3000/z.lua.git "$HOME/.zsh/plugins/z"
-}
+    ok "* Installing Nodejs"
+    $asdf_bin plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+    $asdf_bin install nodejs lts
 
-install_pyenv() {
-    ok "* Installing pyenv"
-    if ! [ -d "$HOME/.pyenv" ]; then
-        curl https://pyenv.run | bash
-        export PYENV_ROOT=$HOME/.pyenv
-        export PATH="$PYENV_ROOT/bin:$PATH"
-        eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
-        
-        ok "* Installing python 3.10.0"
-        pyenv -v
-        pyenv install 3.10.0
-        pyenv global 3.10.0
-    else
-        warn "! Pyenv already installed"
-    fi
+    ok "*Installing Python"
+    $asdf_bin plugin add python https://github.com/danhper/asdf-python.git
+    $asdf_bin install python 3.10.0
 }
 
 install_deno() {
     ok "* Installing deno"
     curl -fsSL https://deno.land/x/install/install.sh | sh
-}
-
-install_pnpm_node() {
-    wget -qO- https://get.pnpm.io/install.sh | sh -
-    source ~/.bashrc
-    pnpm env use --global lts
-    ok $(pnpm --version)
-    ok $(node --version)
 }
 
 install_spacevim() {
@@ -167,9 +144,9 @@ noproxy() {
 EOF
 }
 
-import_zshrc() {
-    ok "* Import .zshrc"
-    cat "$HOME/dotfiles/_zshrc/.zshrc" > "$HOME/.zshrc"
+import_fish_config() {
+    ok "* Import fish config"
+    cat "$HOME/dotfiles/fish/config.fish" > "$HOME/.config/fish/config.fish"
 }
 
 cleanup() {
@@ -211,13 +188,11 @@ check_system
 set_system
 install_package
 install_starship
-install_zsh_plugins
-install_pyenv
 install_deno
-install_pnpm_node
+install_asdf
 install_spacevim
 clone_repo
-import_zshrc
+import_fish_config
 if ! [ "$noproxy" == 1 ]; then
     clash_proxy
 fi

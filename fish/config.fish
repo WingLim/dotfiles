@@ -2,7 +2,11 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 # Homebrew
-eval (/opt/homebrew/bin/brew shellenv)
+if test (uname -m) = "arm64"
+    eval (/opt/homebrew/brew shellenv)
+else
+    eval (/usr/local/bin/brew shellenv)
+end
 
 # z.lua https://github.com/skywind3000/z.lua
 source (lua $HOME/.z/z.lua --init fish | psub)

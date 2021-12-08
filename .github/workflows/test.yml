@@ -1,4 +1,4 @@
-name: Ubuntu
+name: Test
 
 on:
   push:
@@ -9,12 +9,15 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-    runs-on: ubuntu-20.04
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
 
-      - name: test in ubuntu
+      - name: Test in ubuntu
         run: bash install.sh
 
      
